@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-function QuestionForm(props) {
+function QuestionForm({ onNewQuestion}) {
   const [formData, setFormData] = useState({
-    prompt: "",
-    answer1: "",
-    answer2: "",
-    answer3: "",
-    answer4: "",
+    prompt: '',
+    answer1: '',
+    answer2: '',
+    answer3: '',
+    answer4: '',
     correctIndex: 0,
   });
 
@@ -19,8 +19,32 @@ function QuestionForm(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(formData);
+    addNewQuestion();
   }
+
+  const addNewQuestion = async () => {
+    const { prompt, answer1, answer2, answer3, answer4, correctIndex } = formData;
+
+    const config = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        prompt: prompt,
+        answers: [answer1, answer2, answer3, answer4],
+        correctIndex: correctIndex,
+      }),
+    };
+
+    try {
+      const res = await fetch('http://localhost:4000/questions', config);
+      const newQuestion = await res.json();
+      onNewQuestion(newQuestion);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <section>
@@ -76,8 +100,7 @@ function QuestionForm(props) {
           <select
             name="correctIndex"
             value={formData.correctIndex}
-            onChange={handleChange}
-          >
+            onChange={handleChange}>
             <option value="0">{formData.answer1}</option>
             <option value="1">{formData.answer2}</option>
             <option value="2">{formData.answer3}</option>
