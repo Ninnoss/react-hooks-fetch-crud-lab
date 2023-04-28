@@ -65,6 +65,17 @@
         "controlled"
       ],
       "correctIndex": 1
+    },
+    {
+      "prompt": "What do you do?",
+      "answers": [
+        "coding",
+        "design",
+        "sport",
+        "marketing"
+      ],
+      "correctIndex": 0,
+      "id": 7
     }
   ]
 }

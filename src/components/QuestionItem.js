@@ -46,7 +46,7 @@ function QuestionItem({ question, onDeleteQuestion, onUpdateAnswer }) {
           {options}
         </select>
       </label>
-      <button onClick={() => handleDelete(id)}>Delete Question</button>
+      <button onClick={() => handleDelete(id)} >Delete Question</button>
     </li>
   );
 }
